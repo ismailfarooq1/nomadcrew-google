@@ -16,8 +16,8 @@ class GoogleApiDataController extends Controller
         // Authentication and creating Client to access Google Ads Api.
         $oAuth2Credential = (new OAuth2TokenBuilder())
             ->withRefreshToken($refreshToken)
-            ->withClientSecret('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')
-            ->withClientId('539486198246-8v6ublp3r0rouhdmue9qn5fi1i9i2m93.apps.googleusercontent.com')
+            ->withClientSecret(env('GOOGLE_CLIENT_SECRET'))
+            ->withClientId(env('GOOGLE_CLIENT_ID'))
             ->build();
 
         // Build client.
@@ -34,14 +34,14 @@ class GoogleApiDataController extends Controller
     {
         $oAuth2Credential = (new OAuth2TokenBuilder())
             ->withRefreshToken(Auth::user()->refresh_token)
-            ->withClientSecret('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')
-            ->withClientId('539486198246-8v6ublp3r0rouhdmue9qn5fi1i9i2m93.apps.googleusercontent.com')
+            ->withClientSecret(env('GOOGLE_CLIENT_SECRET'))
+            ->withClientId(env('GOOGLE_CLIENT_ID'))
             ->build();
 
         // Build client.
         $googleAdsClient = (new GoogleAdsClientBuilder())
             ->withOAuth2Credential($oAuth2Credential)
-            ->withDeveloperToken('HvjQFmg2Hv_sURvM1a-b2g')
+            ->withDeveloperToken(env('GOOGLE_DEVELOPER_TOKEN'))
             ->build();
 
         $customerServiceClient = $googleAdsClient->getCustomerServiceClient();
